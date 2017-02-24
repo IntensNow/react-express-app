@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessageRow /> 1`] = `
+<div
+  className="user_message_row "
+>
+  <header>
+     
+    <p>
+      Me
+    </p>
+     
+  </header>
+  <div
+    className="message_text"
+  >
+    <p>
+      some text for message
+    </p>
+  </div>
+  <div
+    className="message_date"
+  >
+    <p>
+      23.02.2027
+    </p>
+  </div>
+</div>
+`;

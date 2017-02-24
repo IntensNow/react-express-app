@@ -1,0 +1,3 @@
+export const CREATE_CHANNEL = 'CREATE_CHANNEL';
+export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
+export const ADD_CHANNELS = 'ADD_CHANNELS';

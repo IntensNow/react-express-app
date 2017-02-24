@@ -1,16 +1,23 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import * as db from './utils/DataBaseUtils';
 import sharedsession from 'express-socket.io-session';
-import path from 'path'
+import path from 'path';
 var mongoose = require('mongoose');
 var expressSession = require('express-session');
 var MongoStore = require('connect-mongo')(expressSession);
+
+mongoose.Promise = global.Promise;
+
+import * as db from './utils/DataBaseUtils';
+import socketEvents from './utils/socketEvents';
+
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-var session = expressSession({
+socketEvents(io, db);
+
+const session = expressSession({
   secret: 'i need more beers',
   resave: false,
   saveUninitialized: false,
@@ -22,13 +29,10 @@ db.setUpConnection();
 
 //Using bodyParser middleware
 app.use( bodyParser.json() );
-app.use(express.static('public'));
+app.use(express.static('build'));
 app.use(session);
 io.use(sharedsession(session, { autoSave:true }));
 io.on('connection', function(socket){
-    socket.on('add user', function(data){
-        db.createUser(data);
-    });
     socket.on('complianceCheck', function(data){
         db.complianceCheck(data).then(userdata => {
             socket.handshake.session.userdata = userdata;
@@ -39,16 +43,6 @@ io.on('connection', function(socket){
             io.emit('auth error');
         })
     });
-    socket.on('is user exist', function(data){
-        console.log('emit is came on server');
-        db.isUserExist(data).then(userdata => {
-            console.log('user is exist promise');
-            io.emit('user is exist')
-        }, error => {
-            console.log('user doesnt exist promise');
-            io.emit("user doesn't exist")
-        })
-    })
 });
 app.get('/*', (req,res) => {
     res.sendFile(path.join(__dirname.slice(0, -6) , 'build/index.html'))
