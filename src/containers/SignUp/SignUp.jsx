@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Formsy from 'formsy-react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -6,6 +7,7 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import validations from '../../utils/validations';
 import { FormsyText } from 'formsy-material-ui/lib';
+import { signUp } from '../../Actions';
 
 const styles = {
     paperStyle: {
@@ -80,10 +82,11 @@ class SignUp extends React.Component {
       socket.emit('is user exist', data);
   }
     
-  submitForm(data) {
+  submitForm(user) {
     this.disableFields();
-    const socket = this.props.socket;
-    socket.emit('sign up', data);
+    const { dispatch } = this.props;
+    dispatch(signUp(user));
+    //socket.emit('sign up', user);
   }
 
   disableFields() {
@@ -162,4 +165,10 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+const mapDispatchToProps = (dispatch) => ({
+    dispatch
+})
+
+
+
+export default connect(null, mapDispatchToProps)(SignUp);

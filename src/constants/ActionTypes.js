@@ -1,3 +1,6 @@
-export const CREATE_CHANNEL = 'CREATE_CHANNEL';
-export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
-export const ADD_CHANNELS = 'ADD_CHANNELS';
+export const ADD_CHANNELS        = 'ADD_CHANNELS'; 
+export const AUTH_SIGNUP         = 'AUTH_SIGNUP';
+export const AUTH_SIGNIN_SUCCESS = 'AUTH_SIGNIN_SUCCESS';
+export const AUTH_SIGNUP_SUCCESS = 'AUTH_SIGNUP_SUCCESS';
+export const CREATE_CHANNEL      = 'CREATE_CHANNEL';
+export const RECEIVE_CHANNEL     = 'RECEIVE_CHANNEL';

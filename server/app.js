@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import sharedsession from 'express-socket.io-session';
 import path from 'path';
+import passport from 'passport';
+
 var mongoose = require('mongoose');
 var expressSession = require('express-session');
 var MongoStore = require('connect-mongo')(expressSession);
@@ -10,6 +12,7 @@ mongoose.Promise = global.Promise;
 
 import * as db from './utils/DataBaseUtils';
 import socketEvents from './utils/socketEvents';
+import usersRouterInit from './routes/usersRouter';
 
 const app = require('express')();
 const server = require('http').Server(app);
@@ -31,8 +34,15 @@ db.setUpConnection();
 app.use( bodyParser.json() );
 app.use(express.static('build'));
 app.use(session);
+//create router
+const usersRouter = express.Router();
+//init loaded router
+usersRouterInit(usersRouter, passport);
+//use our created router to path '/api';
+app.use('/api', usersRouter);
+
 io.use(sharedsession(session, { autoSave:true }));
-io.on('connection', function(socket){
+/*io.on('connection', function(socket){
     socket.on('complianceCheck', function(data){
         db.complianceCheck(data).then(userdata => {
             socket.handshake.session.userdata = userdata;
@@ -43,7 +53,7 @@ io.on('connection', function(socket){
             io.emit('auth error');
         })
     });
-});
+});*/
 app.get('/*', (req,res) => {
     res.sendFile(path.join(__dirname.slice(0, -6) , 'build/index.html'))
   })
