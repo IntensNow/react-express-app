@@ -5,10 +5,14 @@ import { Router, browserHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Promise from 'promise-polyfill'; 
 
+import configureStore from './store';
+import { checkAuth } from './Actions';
 import { routes } from './routes';
-import configureStore from './store/configureStore';
 
 import './main.css';
+
+const store = configureStore(undefined, NODE_ENV);
+store.dispatch(checkAuth());
 
 // add promise polyfill for old browsers;
 if (!window.Promise) {
@@ -19,8 +23,6 @@ injectTapEventPlugin();
 const mountingPoint = document.createElement('div');
 mountingPoint.className = 'app';
 document.body.insertBefore(mountingPoint, document.body.firstChild);
-
-export const store = configureStore();
 
 render(
     (

@@ -44,9 +44,8 @@ function hash(text) {
 export function createChannel(data) {
     const channel = new Channels({
         creator:        data.creator,
+        members:        [data.creator],
         id:             newID(),
-        isPrivate:      data.isPrivate,
-        members:        data.members,
         title:          data.title
     });
     return channel.save();
@@ -58,3 +57,38 @@ export function getLobbyChannelsList(){
             return Promise.resolve(result);
         })
 };
+//нужно делать метод
+export function userJoinToChannel(user, channelTitle){
+    
+    Channels.findOne({title: channelTitle}, 'members')
+        .then((channel) => {
+            channel.members.push(user);
+            channel.save(err => console.log(err));
+    })
+};
+
+export function userExitChannel(user, channelTitle) {
+    console.log('предыдущий канал пришел в userExitChannel : ' + channelTitle);
+    Channels.findOne({title: channelTitle}, 'members')
+        .then(channel => {
+            channel.members.some((member, i) => {
+                if (member === user) {
+                   channel.members.splice(i, 1);
+                   return true;
+                }
+                return false;
+        });
+        channel.save(err => console.log(err));
+    })
+}
+
+export function getMessages(channelTitle) {
+    return Channels.findOne({ title: channelTitle }, 'messages')
+        .then(channel => {
+            if( channel ){
+                return Promise.resolve(channel.messages);
+            } else {
+                return Promise.reject('Channel is not defined');
+            }
+    }, err => Promise.reject(err));
+}

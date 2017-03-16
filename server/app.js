@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise;
 
 import * as db from './utils/DataBaseUtils';
 import socketEvents from './utils/socketEvents';
+import passportConfig from './utils/passport';
 import usersRouterInit from './routes/usersRouter';
 
 const app = require('express')();
@@ -34,6 +35,8 @@ db.setUpConnection();
 app.use( bodyParser.json() );
 app.use(express.static('build'));
 app.use(session);
+app.use(passport.initialize());
+passportConfig(passport);
 //create router
 const usersRouter = express.Router();
 //init loaded router

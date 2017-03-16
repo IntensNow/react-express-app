@@ -2,10 +2,13 @@
   "name": "playing-with-react-and-d3",
   "version": "1.0.0",
   "description": "This is a demo app demonstrating how React and D3 can be friends",
-  "main": "index.js",
+  "main": "server/app.js",
+  "engines" : {
+    "node": "6.9.5"
+  },
   "scripts": {
-    "start": "webpack-dev-server",
-    "server": "babel-node server/app.js",
+    "server": "webpack-dev-server",
+    "start": "babel-node server/app.js",
     "test": "jest"
   },
   "babel": {
@@ -71,7 +74,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "promise-polyfill": "*",
+    "promise-polyfill": "6.0.2",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-cookie": "^1.0.4",

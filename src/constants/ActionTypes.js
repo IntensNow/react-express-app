@@ -1,6 +1,11 @@
-export const ADD_CHANNELS        = 'ADD_CHANNELS'; 
-export const AUTH_SIGNUP         = 'AUTH_SIGNUP';
-export const AUTH_SIGNIN_SUCCESS = 'AUTH_SIGNIN_SUCCESS';
-export const AUTH_SIGNUP_SUCCESS = 'AUTH_SIGNUP_SUCCESS';
-export const CREATE_CHANNEL      = 'CREATE_CHANNEL';
-export const RECEIVE_CHANNEL     = 'RECEIVE_CHANNEL';
+export const ADD_CHANNELS          = 'ADD_CHANNELS';
+export const ADD_MSGS_FROM_DB      = 'ADD_MSGS_FROM_DB';
+export const ADD_SINGLE_MESSAGE    = 'ADD_SINGLE_MESSAGE';
+export const AUTH_SIGNUP           = 'AUTH_SIGNUP';
+export const AUTH_SUCCESS          = 'AUTH_SUCCESS';
+export const CHANGE_ACTIVE_CHANNEL = 'CHANGE_ACTIVE_CHANNEL';
+export const CREATE_CHANNEL        = 'CREATE_CHANNEL';
+export const HIDE_MODAL            = 'HIDE_MODAL';
+export const RECEIVE_CHANNEL       = 'RECEIVE_CHANNEL';
+export const REDIRECT              = 'REDIRECT';
+export const SHOW_MODAL            = 'SHOW_MODAL';
