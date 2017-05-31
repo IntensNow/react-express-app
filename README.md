@@ -1,7 +1,11 @@
 # first_app
 react-redux-socket.io-express 
 
-DEVELOPMENT
+Install dependencies
+
+     npm i
+
+Development
 
       webpack --watch
 
